@@ -34,7 +34,7 @@ public class ContactApp {
         int userInput = scanner.nextInt();
 
         if (userInput == 1) {
-            contact.readFileAndOutput(pathToOurFile);
+            contact.displayCurrentContacts();
         } else if (userInput == 2) {
             contact.addContact();
         } else if (userInput == 3) {

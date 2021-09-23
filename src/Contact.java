@@ -72,6 +72,8 @@ public class Contact {
         contact.readFileAndOutput(pathToOurFile);
     }
 
+        // Below code will add a contact to the contacts.txt file:
+
     public void addContact() {
         Path pathToOurFile = Paths.get("src", "contacts.txt");
 
@@ -85,7 +87,7 @@ public class Contact {
         System.out.println("Please enter the name of the contact: ");
         String userName = nameScanner.next();
 
-        System.out.println("Please enter the phone number of the contact: ");
+        System.out.println("Please enter the phone number of the contact (Ex: (123)456-7890) : ");
         String userPhoneNumber = phoneNumberScanner.next();
 
         String concatFormat = userName + " | " + userPhoneNumber;
@@ -95,6 +97,24 @@ public class Contact {
             Files.write(pathToOurFile, newAdditions, StandardOpenOption.APPEND);
         } catch (IOException ioe) {
             ioe.printStackTrace();
+        }
+    }
+
+        public void displayCurrentContacts() {
+        Path pathToOurFile = Paths.get("src", "contacts.txt");
+
+        List<String> currentList = new ArrayList<>();
+
+        try {
+            currentList = Files.readAllLines(pathToOurFile);
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+
+        System.out.println("Name | Phone Number");
+        System.out.println("-------------------");
+        for (String person : currentList) {
+            System.out.println(person);
         }
     }
 }
