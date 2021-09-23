@@ -4,6 +4,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 public class Contact {
     public void readFileAndOutput(Path pathToFile) {
         List<String> linesInTheFile = new ArrayList<>();
@@ -15,5 +17,6 @@ public class Contact {
         for (String line : linesInTheFile) {
             System.out.println(line);
         }
+//
     }
 }
