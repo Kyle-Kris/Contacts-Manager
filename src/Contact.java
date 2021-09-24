@@ -103,7 +103,7 @@ public class Contact {
             } else if (userInput == 3) {
                 searchForContact();
             } else if (userInput == 4) {
-
+                deleteContact();
             } else if (userInput == 5) {
                 break;
             } else {
@@ -192,5 +192,41 @@ public class Contact {
                 System.out.println(item);
             }
         }
+    }
+
+    public void deleteContact() {
+        // Creating Path to .txt file:
+
+        Path pathToOurFile = Paths.get("src", "contacts.txt");
+
+        Scanner scanner1 = new Scanner(System.in);
+
+        System.out.println("Please enter the name of the contact you would like to delete: ");
+
+        String userInput1 = scanner1.nextLine();
+
+        List<String> currentList = new ArrayList<>();
+
+        try {
+            currentList = Files.readAllLines(pathToOurFile);
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+
+        Iterator<String> listIterator = currentList.iterator();
+
+        while (listIterator.hasNext()) {
+            String item = listIterator.next();
+            if (item.contains(userInput1)) {
+                listIterator.remove();
+            }
+        }
+
+        try {
+            Files.write(pathToOurFile, currentList);
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+
     }
 }
