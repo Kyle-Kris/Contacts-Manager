@@ -37,7 +37,7 @@ public class Contact {
         // Below code will create our HashMap and will add the Key Value pairs from the HashMap to the contacts.txt. After the enhanced-for loop, the names and phone numbers are printed:
 
         HashMap<String, String> contacts = new HashMap<>();
-        contacts.put("Shelby ", "(605)475-6958");
+        contacts.put("Shelby", "(605)475-6958");
         contacts.put("Joe", "(212)479-7990");
         contacts.put("Kyle", "(470)651-5050");
         contacts.put("Chris", "(212)479-7990");
@@ -72,9 +72,74 @@ public class Contact {
         contact.readFileAndOutput(pathToOurFile);
     }
 
+    public void mainMenu() {
+        // Creating Path to .txt file:
+
+        Path pathToOurFile = Paths.get("src", "contacts.txt");
+
+        // Main Menu:
+
+        String userContinue = "";
+
+        do {
+
+            Scanner scanner = new Scanner(System.in);
+
+            System.out.printf("%n%n1. View contacts.%n");
+            System.out.println("2. Add a new contact.");
+            System.out.println("3. Search a contact by name.");
+            System.out.println("4. Delete an existing contact.");
+            System.out.println("5. Exit.");
+            System.out.println("Enter an option (1, 2, 3, 4 or 5):");
+
+            // Conditionals required for User Input:
+
+            int userInput = scanner.nextInt();
+
+            if (userInput == 1) {
+                displayCurrentContacts();
+            } else if (userInput == 2) {
+                addContact();
+            } else if (userInput == 3) {
+                searchForContact();
+            } else if (userInput == 4) {
+
+            } else if (userInput == 5) {
+                break;
+            } else {
+                System.out.println("I'm sorry, that is not a valid input.");
+            }
+
+            System.out.println("Would you like to continue using the Contacts App? (yes/no)");
+            userContinue = scanner.next();
+
+
+        } while (userContinue.equalsIgnoreCase("yes"));
+    }
+
+    public void displayCurrentContacts() {
+        Path pathToOurFile = Paths.get("src", "contacts.txt");
+
+        List<String> currentList = new ArrayList<>();
+
+        try {
+            currentList = Files.readAllLines(pathToOurFile);
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+
+        System.out.println("Name | Phone Number");
+        System.out.println("-------------------");
+        for (String person : currentList) {
+            System.out.println(person);
+        }
+    }
+
         // Below code will add a contact to the contacts.txt file:
 
     public void addContact() {
+        // Creating Path to .txt file:
+
         Path pathToOurFile = Paths.get("src", "contacts.txt");
 
         Scanner nameScanner = new Scanner(System.in);
@@ -100,8 +165,16 @@ public class Contact {
         }
     }
 
-        public void displayCurrentContacts() {
+    public void searchForContact() {
+        // Creating Path to .txt file:
+
         Path pathToOurFile = Paths.get("src", "contacts.txt");
+
+        Scanner scanner1 = new Scanner(System.in);
+
+        System.out.println("Please enter the name of the contact you are searching for: ");
+
+        String userInput1 = scanner1.nextLine();
 
         List<String> currentList = new ArrayList<>();
 
@@ -111,10 +184,13 @@ public class Contact {
             ioe.printStackTrace();
         }
 
-        System.out.println("Name | Phone Number");
-        System.out.println("-------------------");
-        for (String person : currentList) {
-            System.out.println(person);
+        Iterator<String> listIterator = currentList.iterator();
+
+        while (listIterator.hasNext()) {
+            String item = listIterator.next();
+            if (item.contains(userInput1)) {
+                System.out.println(item);
+            }
         }
     }
 }
