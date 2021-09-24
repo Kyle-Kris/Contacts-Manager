@@ -20,6 +20,10 @@ public class ContactApp {
 
         // Main Menu:
 
+        String userContinue = "";
+
+        do {
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.printf("%n%n1. View contacts.%n");
@@ -33,18 +37,25 @@ public class ContactApp {
 
         int userInput = scanner.nextInt();
 
-        if (userInput == 1) {
-            contact.displayCurrentContacts();
-        } else if (userInput == 2) {
-            contact.addContact();
-        } else if (userInput == 3) {
+                if (userInput == 1) {
+                    contact.displayCurrentContacts();
+                } else if (userInput == 2) {
+                    contact.addContact();
+                } else if (userInput == 3) {
 
-        } else if (userInput == 4) {
+                } else if (userInput == 4) {
 
-        } else if (userInput == 5) {
+                } else if (userInput == 5) {
+                    break;
+                } else {
+                    System.out.println("I'm sorry, that is not a valid input.");
+                }
 
-        } else {
-            System.out.println("I'm sorry, that is not a valid input.");
-        }
+                System.out.println("Would you like to continue using the Contacts App? (yes/no)");
+                userContinue = scanner.next();
+
+
+        } while (userContinue.equalsIgnoreCase("yes"));
+
     }
 }
