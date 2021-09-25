@@ -6,7 +6,8 @@ import java.nio.file.StandardOpenOption;
 import java.util.*;
 
 
-public class Contact {
+public class Contact<searchForContact> {
+    //Path to contacts.txt 
     public void readFileAndOutput(Path pathToFile) {
         List<String> linesInTheFile = new ArrayList<>();
         try {
@@ -84,7 +85,7 @@ public class Contact {
         do {
 
             Scanner scanner = new Scanner(System.in);
-
+//
             System.out.printf("%n%n1. View contacts.%n");
             System.out.println("2. Add a new contact.");
             System.out.println("3. Search a contact by name.");
@@ -135,22 +136,32 @@ public class Contact {
         }
     }
 
-        // Below code will add a contact to the contacts.txt file:
+    // Below code will add a contact to the contacts.txt file:
 
     public void addContact() {
         // Creating Path to .txt file:
 
         Path pathToOurFile = Paths.get("src", "contacts.txt");
 
-        Scanner nameScanner = new Scanner(System.in);
         Scanner phoneNumberScanner = new Scanner(System.in);
 
         List<String> newAdditions = new ArrayList<>();
 
         // Below will add a contact to the .txt file. Will move this to a method for better use:
+        System.out.println("please enter a name: ");
+        String userName = phoneNumberScanner.next();
 
-        System.out.println("Please enter the name of the contact: ");
-        String userName = nameScanner.next();
+        if (searchForContact(userName) != null) {
+            System.out.println("There's already a contact named " + userName + ". Do you want to overwrite it? (Yes/No)");
+            String yesOrNo = phoneNumberScanner.next();
+            if (yesOrNo.equalsIgnoreCase("no")) {
+                return;
+                // if you type no you exit the function, it tells it to STOP executing function
+            } else {
+                deleteContact(userName);
+            }
+
+        }
 
         System.out.println("Please enter the phone number of the contact (Ex: (123)456-7890) : ");
         String userPhoneNumber = phoneNumberScanner.next();
@@ -163,18 +174,26 @@ public class Contact {
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
+
+    }
+      //Default and overloading to take in a username
+    public String searchForContact() {
+        Scanner scanner1 = new Scanner(System.in);
+
+        System.out.println("Please enter a name: ");
+
+        String userInput1 = scanner1.nextLine();
+          return searchForContact(userInput1);
     }
 
-    public void searchForContact() {
+
+
+    public String searchForContact(String userName) {
         // Creating Path to .txt file:
 
         Path pathToOurFile = Paths.get("src", "contacts.txt");
 
-        Scanner scanner1 = new Scanner(System.in);
 
-        System.out.println("Please enter the name of the contact you are searching for: ");
-
-        String userInput1 = scanner1.nextLine();
 
         List<String> currentList = new ArrayList<>();
 
@@ -185,25 +204,38 @@ public class Contact {
         }
 
         Iterator<String> listIterator = currentList.iterator();
-
+        //now we can search lowercase
         while (listIterator.hasNext()) {
             String item = listIterator.next();
-            if (item.contains(userInput1)) {
+            if (item.toLowerCase().contains(userName.toLowerCase())) {
                 System.out.println(item);
+                return userName;
             }
         }
+        return null;
     }
+    // searches for input if input is typed in
 
-    public void deleteContact() {
+      public void deleteContact(){
+          Scanner scanner1 = new Scanner(System.in);
+
+          System.out.println("Please enter the name of the contact you would like to delete: ");
+
+          String userInput1 = scanner1.nextLine();
+          deleteContact(userInput1);
+      }
+
+
+    public void deleteContact(String userName) {
         // Creating Path to .txt file:
 
         Path pathToOurFile = Paths.get("src", "contacts.txt");
-
-        Scanner scanner1 = new Scanner(System.in);
-
-        System.out.println("Please enter the name of the contact you would like to delete: ");
-
-        String userInput1 = scanner1.nextLine();
+         // moved to other delete contact function
+//        Scanner scanner1 = new Scanner(System.in);
+//
+//        System.out.println("Please enter the name of the contact you would like to delete: ");
+//
+//        String userInput1 = scanner1.nextLine();
 
         List<String> currentList = new ArrayList<>();
 
@@ -217,7 +249,7 @@ public class Contact {
 
         while (listIterator.hasNext()) {
             String item = listIterator.next();
-            if (item.contains(userInput1)) {
+            if (item.contains(userName)) {
                 listIterator.remove();
             }
         }
@@ -227,6 +259,8 @@ public class Contact {
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
+
+
 
     }
 }
