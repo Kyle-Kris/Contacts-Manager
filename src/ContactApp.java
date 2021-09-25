@@ -9,7 +9,7 @@ public class ContactApp {
 
         // Default contacts from Contact class/contacts.txt:
 
-     //   contact.defaultContacts();
+     //contact.defaultContacts();
 
         // Main Menu:
 

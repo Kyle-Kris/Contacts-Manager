@@ -176,7 +176,7 @@ public class Contact<searchForContact> {
         }
 
     }
-      //Default and overloading to take in a Un
+      //Default and overloading to take in a username
     public String searchForContact() {
         Scanner scanner1 = new Scanner(System.in);
 
