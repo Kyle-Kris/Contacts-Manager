@@ -35,7 +35,8 @@ public class Contact<searchForContact> {
 
         // Setting Default Contacts:
 
-        // Below code will create our HashMap and will add the Key Value pairs from the HashMap to the contacts.txt. After the enhanced-for loop, the names and phone numbers are printed:
+        // Below code will create our HashMap and will add the Key Value pairs from the HashMap to the contacts.txt.
+        // After the enhanced-for loop, the names and phone numbers are printed:
 
         HashMap<String, String> contacts = new HashMap<>();
         contacts.put("Shelby", "(605)475-6958");
@@ -204,7 +205,7 @@ public class Contact<searchForContact> {
         }
 
         Iterator<String> listIterator = currentList.iterator();
-        //now we can search lowercase
+        //now we can search for a specified contact without case sensitivity
         while (listIterator.hasNext()) {
             String item = listIterator.next();
             if (item.toLowerCase().contains(userName.toLowerCase())) {
@@ -217,6 +218,7 @@ public class Contact<searchForContact> {
     // searches for input if input is typed in
 
       public void deleteContact(){
+        // kristen moved lines 235-248 to this method as a way of capturing the value from userInput1 that the user inputs that they want to delete
           Scanner scanner1 = new Scanner(System.in);
 
           System.out.println("Please enter the name of the contact you would like to delete: ");
@@ -228,7 +230,7 @@ public class Contact<searchForContact> {
 
     public void deleteContact(String userName) {
         // Creating Path to .txt file:
-
+  // OKAY this method corresponds to #5 of the Project Once the user chooses to exit, re-write the contents of the contacts.txt file using the List of Contact objects
         Path pathToOurFile = Paths.get("src", "contacts.txt");
          // moved to other delete contact function
 //        Scanner scanner1 = new Scanner(System.in);
