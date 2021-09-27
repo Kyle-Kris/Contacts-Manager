@@ -20,59 +20,6 @@ public class Contact<searchForContact> {
         }
     }
 
-    public void defaultContacts() {
-        // Creating Path to .txt file:
-
-        Path pathToOurFile = Paths.get("src", "contacts.txt");
-
-        try {
-            if (Files.notExists(pathToOurFile)) {
-                Files.createFile(pathToOurFile);
-            }
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-
-        // Setting Default Contacts:
-
-        // Below code will create our HashMap and will add the Key Value pairs from the HashMap to the contacts.txt.
-        // After the enhanced-for loop, the names and phone numbers are printed:
-
-        HashMap<String, String> contacts = new HashMap<>();
-        contacts.put("Shelby", "(605)475-6958");
-        contacts.put("Joe", "(212)479-7990");
-        contacts.put("Kyle", "(470)651-5050");
-        contacts.put("Chris", "(212)479-7990");
-        contacts.put("Sergio", "(880)651-5050");
-
-        System.out.println("Name | Phone Number");
-        System.out.println("-------------------");
-
-        List<String> listOfContacts = new ArrayList<>();
-
-        for (Map.Entry<String, String> contact : contacts.entrySet()) {
-            String key = contact.getKey();
-            Object value = contact.getValue();
-
-            String concatFormat = key + " | " + value;
-
-            listOfContacts.add(concatFormat);
-
-            try {
-                Files.write(pathToOurFile, listOfContacts);
-            } catch (IOException ioe) {
-                ioe.printStackTrace();
-            }
-        }
-
-        // Instantiating Contact class:
-
-        Contact contact = new Contact();
-
-        // Using below method from Contact class. Will read and print .txt file:
-
-        contact.readFileAndOutput(pathToOurFile);
-    }
 
     public void mainMenu() {
         // Creating Path to .txt file:
@@ -150,12 +97,13 @@ public class Contact<searchForContact> {
 
         // Below will add a contact to the .txt file. Will move this to a method for better use:
         System.out.println("please enter a name: ");
-        String userName = phoneNumberScanner.next();
+        String userName = phoneNumberScanner.nextLine();
 
         if (searchForContact(userName) != null) {
             System.out.println("There's already a contact named " + userName + ". Do you want to overwrite it? (Yes/No)");
             String yesOrNo = phoneNumberScanner.next();
             if (yesOrNo.equalsIgnoreCase("no")) {
+                duplicateContact();
                 return;
                 // if you type no you exit the function, it tells it to STOP executing function
             } else {
@@ -165,7 +113,7 @@ public class Contact<searchForContact> {
         }
 
         System.out.println("Please enter the phone number of the contact (Ex: (123)456-7890) : ");
-        String userPhoneNumber = phoneNumberScanner.next();
+        String userPhoneNumber = phoneNumberScanner.nextLine();
 
         String concatFormat = userName + " | " + userPhoneNumber;
 
@@ -211,9 +159,12 @@ public class Contact<searchForContact> {
             if (item.toLowerCase().contains(userName.toLowerCase())) {
                 System.out.println(item);
                 return userName;
+
             }
+
         }
         return null;
+
     }
     // searches for input if input is typed in
 
@@ -264,5 +215,27 @@ public class Contact<searchForContact> {
 
 
 
+    }
+    public void duplicateContact(){
+        Path pathToOurFile = Paths.get("src", "contacts.txt");
+        Scanner phoneNumberScanner = new Scanner(System.in);
+
+
+        List<String> newAdditions = new ArrayList<>();
+
+
+        System.out.println("please enter a name: ");
+        String userName = phoneNumberScanner.nextLine();
+
+        System.out.println("Please enter the phone number of the contact (Ex: (123)456-7890) : ");
+        String userPhoneNumber = phoneNumberScanner.nextLine();
+
+        String concatFormat = userName + " | " + userPhoneNumber;
+        newAdditions.add(concatFormat);
+        try {
+            Files.write(pathToOurFile, newAdditions, StandardOpenOption.APPEND);
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
     }
 }
