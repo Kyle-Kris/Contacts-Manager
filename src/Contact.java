@@ -108,6 +108,8 @@ public class Contact<searchForContact> {
                 // if you type no you exit the function, it tells it to STOP executing function
             } else {
                 deleteContact(userName);
+                duplicateContact();
+                return;
             }
 
         }
@@ -248,6 +250,23 @@ public class Contact<searchForContact> {
 
         System.out.println("Please enter the phone number of the contact: ");
         String userPhoneNumber = phoneNumberScanner.nextLine();
+
+        if (userPhoneNumber.length() == 7) {
+            String firstThree = userPhoneNumber.substring(0, 3);
+            String lastFour = userPhoneNumber.substring(3, 7);
+            userPhoneNumber = firstThree + "-" + lastFour;
+        } else if (userPhoneNumber.length() == 10) {
+            String firstThree = userPhoneNumber.substring(0, 3);
+            String secondThree = userPhoneNumber.substring(3, 6);
+            String lastFour = userPhoneNumber.substring(6, 10);
+            userPhoneNumber = "(" + firstThree + ")" + secondThree + "-" + lastFour;
+        } else if (userPhoneNumber.length() == 11) {
+            String first = userPhoneNumber.substring(0, 1);
+            String firstThree = userPhoneNumber.substring(1, 4);
+            String secondThree = userPhoneNumber.substring(4, 7);
+            String lastFour = userPhoneNumber.substring(7, 11);
+            userPhoneNumber = "+" + first + "(" + firstThree + ")" + secondThree + "-" + lastFour;
+        }
 
         String concatFormat = String.format("%-13s | %-15s |", userName, userPhoneNumber);
         newAdditions.add(concatFormat);
