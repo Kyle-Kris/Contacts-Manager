@@ -77,8 +77,8 @@ public class Contact<searchForContact> {
             ioe.printStackTrace();
         }
 
-        System.out.println("Name | Phone Number");
-        System.out.println("-------------------");
+        System.out.println("Name          | Phone Number    |");
+        System.out.println("---------------------------------");
         for (String person : currentList) {
             System.out.println(person);
         }
@@ -96,7 +96,7 @@ public class Contact<searchForContact> {
         List<String> newAdditions = new ArrayList<>();
 
         // Below will add a contact to the .txt file. Will move this to a method for better use:
-        System.out.println("please enter a name: ");
+        System.out.println("Please enter a name: ");
         String userName = phoneNumberScanner.nextLine();
 
         if (searchForContact(userName) != null) {
@@ -112,10 +112,29 @@ public class Contact<searchForContact> {
 
         }
 
-        System.out.println("Please enter the phone number of the contact (Ex: (123)456-7890) : ");
+        System.out.println("Please enter the phone number of the contact: ");
         String userPhoneNumber = phoneNumberScanner.nextLine();
 
-        String concatFormat = userName + " | " + userPhoneNumber;
+        if (userPhoneNumber.length() == 7) {
+            String firstThree = userPhoneNumber.substring(0, 3);
+            String lastFour = userPhoneNumber.substring(3, 7);
+            userPhoneNumber = firstThree + "-" + lastFour;
+        } else if (userPhoneNumber.length() == 10) {
+            String firstThree = userPhoneNumber.substring(0, 3);
+            String secondThree = userPhoneNumber.substring(3, 6);
+            String lastFour = userPhoneNumber.substring(6, 10);
+            userPhoneNumber = "(" + firstThree + ")" + secondThree + "-" + lastFour;
+        } else if (userPhoneNumber.length() == 11) {
+            String first = userPhoneNumber.substring(0, 1);
+            String firstThree = userPhoneNumber.substring(1, 4);
+            String secondThree = userPhoneNumber.substring(4, 7);
+            String lastFour = userPhoneNumber.substring(7, 11);
+            userPhoneNumber = "+" + first + "(" + firstThree + ")" + secondThree + "-" + lastFour;
+        }
+
+
+//        String concatFormat = userName + " | " + userPhoneNumber;
+        String concatFormat = String.format("%-13s | %-15s |", userName, userPhoneNumber);
 
         newAdditions.add(concatFormat);
         try {
@@ -224,13 +243,13 @@ public class Contact<searchForContact> {
         List<String> newAdditions = new ArrayList<>();
 
 
-        System.out.println("please enter a name: ");
+        System.out.println("Please enter a name: ");
         String userName = phoneNumberScanner.nextLine();
 
-        System.out.println("Please enter the phone number of the contact (Ex: (123)456-7890) : ");
+        System.out.println("Please enter the phone number of the contact: ");
         String userPhoneNumber = phoneNumberScanner.nextLine();
 
-        String concatFormat = userName + " | " + userPhoneNumber;
+        String concatFormat = String.format("%-13s | %-15s |", userName, userPhoneNumber);
         newAdditions.add(concatFormat);
         try {
             Files.write(pathToOurFile, newAdditions, StandardOpenOption.APPEND);

@@ -1,3 +1,5 @@
-Jack Blank | 210-567-8923
-Jane Doe | 2342342345
-Sam Space | 3453453456
+Jack Blank    | (210)567-8923   |
+Jane Doe      | (234)234-2345   |
+Sam Space     | (345)345-3456   |
+Kyle          | (214)555-5555   |
+Kristen       | (214)555-5555   |
